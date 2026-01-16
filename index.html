@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Interactivo de Microeconomía</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="progress-fill"></div>
+                <span id="progress-text" class="progress-text">0%</span>
+            </div>
+            <h1>Laboratorio de Microeconomía</h1>
+        </header>
+
+        <main>
+            <div class="sidebar">
+                <div id="explanation-container" class="glass-panel">
+                    <h2 id="section-title">Cargando...</h2>
+                    <p id="step-subtitle"></p>
+                    <div id="explanation-text">
+                        <!-- Tutorial steps will appear here -->
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="prev-btn" class="nav-btn" disabled>Anterior</button>
+                    <button id="next-btn" class="nav-btn">¡Comenzar!</button>
+                </div>
+            </div>
+
+            <div class="graph-container glass-panel">
+                <div id="tutorial-overlay" class="tutorial-hint">
+                    <h2 style="color: var(--accent-blue);">Pulsa "¡Comenzar!" para iniciar el tutorial</h2>
+                    <p>Verás cómo se construye el mercado paso a paso</p>
+                </div>
+                <svg id="economy-graph" viewBox="0 0 650 620" preserveAspectRatio="xMidYMid meet">
+                    <!-- Los ejes, números y etiquetas se generan dinámicamente en app.js para un control total -->
+                    <g id="graph-elements"></g>
+                </svg>
+                <div id="graph-legend" class="legend"></div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
