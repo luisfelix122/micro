@@ -366,6 +366,84 @@ const workflow = [
                 }
             }
         ]
+    },
+    {
+        mainTitle: "¡EXAMEN FINAL!",
+        substeps: [
+            {
+                subtitle: "P1: Precio Máximo (Internet)",
+                explanation: "Imagina que el gobierno fija el precio del internet Fibra Óptica en $40 (antes $55). <strong>Consecuencia:</strong> A ese precio bajo, mucha gente quiere internet (Qd=60), pero a las empresas no les sale a cuenta instalar tanto (Qs=30). <strong>Escasez:</strong> Faltan 30 conexiones. Se generan colas y pérdida de bienestar (triángulo blanco).",
+                legend: [{ label: "Precio Máximo ($40)", color: "var(--accent-purple)", isLine: true }, { label: "Escasez", color: "var(--accent-orange)", isLine: true }],
+                draw: (svg) => {
+                    const d1 = toSVG(0, 100); const d2 = toSVG(100, 0); const s1 = toSVG(0, 10); const s2 = toSVG(90, 100);
+                    const pmax = toSVG(100, 40); const qs = toSVG(30, 40); const qd = toSVG(60, 40); const eq = toSVG(45, 55);
+                    createPath(svg, "curve", `M ${d1.x} ${d1.y} L ${d2.x} ${d2.y}`, "var(--accent-blue)");
+                    createPath(svg, "curve", `M ${s1.x} ${s1.y} L ${s2.x} ${s2.y}`, "var(--accent-red)");
+                    createLine(svg, "line-intervention", OFFSET_X, pmax.y, pmax.x, pmax.y, "var(--accent-purple)");
+                    createLine(svg, "curve", qs.x, qs.y, qd.x, qd.y, "var(--accent-orange)");
+                    createPath(svg, "area-shade", `M ${qs.x} ${qs.y} L ${toSVG(30, 70).x} ${toSVG(30, 70).y} L ${eq.x} ${eq.y} Z`, "white");
+                }
+            },
+            {
+                subtitle: "P2: Impuesto (GPUs)",
+                explanation: "El Estado pone un impuesto de $20 a las tarjetas de video. La oferta 'salta' hacia arriba. <strong>Resultado:</strong> El gamer paga más ($Pc=65$), la tienda recibe menos ($Pv=45$) y el Estado se lleva el rectángulo verde. Se venden menos GPUs (Q cae de 45 a 35).",
+                legend: [{ label: "Recaudación", color: "var(--accent-green)", isArea: true }, { label: "Pérdida (PIE)", color: "white", isArea: true }],
+                draw: (svg) => {
+                    const pc = toSVG(35, 65); const pv = toSVG(35, 45); const eq = toSVG(45, 55);
+                    createRect(svg, "area-shade", OFFSET_X, pc.y, 35 * SCALE, (65 - 45) * SCALE, "var(--accent-green)");
+                    createPath(svg, "area-shade", `M ${pc.x} ${pc.y} L ${pv.x} ${pv.y} L ${eq.x} ${eq.y} Z`, "white");
+                    createPath(svg, "curve", `M ${toSVG(0, 100).x} ${toSVG(0, 100).y} L ${toSVG(100, 0).x} ${toSVG(100, 0).y}`, "var(--accent-blue)");
+                    createPath(svg, "curve", `M ${toSVG(0, 10).x} ${toSVG(0, 10).y} L ${toSVG(90, 100).x} ${toSVG(90, 100).y}`, "var(--accent-red)");
+                    createPath(svg, "curve", `M ${toSVG(0, 30).x} ${toSVG(0, 30).y} L ${toSVG(70, 100).x} ${toSVG(70, 100).y}`, "var(--accent-orange)", null, true);
+                }
+            },
+            {
+                subtitle: "P3: Barreras de Entrada Tech",
+                explanation: "¿Por qué Google no tiene competencia? 1) <strong>Efecto de Red:</strong> Si todos están ahí, tú también. 2) <strong>Economías de Escala de Datos:</strong> Más datos = mejor IA. 3) <strong>Vendor Lock-in:</strong> Si usas AWS, migrar a otro lado es carísimo.",
+                legend: [{ label: "Barrera Infranqueable", color: "var(--accent-red)", isLine: true }],
+                draw: (svg) => {
+                    createLine(svg, "line-intervention", OFFSET_X + 150, OFFSET_Y, OFFSET_X + 150, OFFSET_Y + GRAPH_SIZE, "var(--accent-red)");
+                    createCircle(svg, "marker-point", OFFSET_X + 50, OFFSET_Y + 300, 40, "var(--accent-blue)");
+                    createText(svg, "axis-label-small", OFFSET_X + 35, OFFSET_Y + 305, "TU APP", "white");
+                }
+            },
+            {
+                subtitle: "P4: Discriminación de Precios",
+                explanation: "Mismo software, distinto precio. <strong>EE.UU. (Inelástica):</strong> Empresas que 'tienen' que comprar. Les cobras caro ($55). <strong>Latam (Elástica):</strong> Estudiantes sensibles al precio. Les cobras barato ($30) para que no pirateen.",
+                legend: [{ label: "Precio USA", color: "var(--accent-red)" }, { label: "Precio Latam", color: "var(--accent-green)" }],
+                draw: (svg) => {
+                    const eq_usa = toSVG(22.5, 55); const eq_lat = toSVG(40, 30);
+                    createPath(svg, "curve", `M ${toSVG(0, 100).x} ${toSVG(0, 100).y} L ${toSVG(50, 0).x} ${toSVG(50, 0).y}`, "var(--accent-red)");
+                    createPath(svg, "curve", `M ${toSVG(0, 50).x} ${toSVG(0, 50).y} L ${toSVG(100, 0).x} ${toSVG(100, 0).y}`, "var(--accent-green)");
+                    createCircle(svg, "marker-point", eq_usa.x, eq_usa.y, 6, "white");
+                    createCircle(svg, "marker-point", eq_lat.x, eq_lat.y, 6, "white");
+                }
+            },
+            {
+                subtitle: "P5: El Efecto IA (Productividad)",
+                explanation: "<strong>Regla de Oro:</strong> Contratas hasta que <i>VPMgL = W</i>. Con GitHub Copilot, los Juniors programan el doble de rápido. <strong>Efecto:</strong> La demanda de trabajadores se desplaza a la DERECHA. Ahora las empresas quieren contratar a más gente al mismo sueldo.",
+                isLabor: true,
+                legend: [{ label: "Demanda + IA", color: "var(--accent-green)", isDashed: true }],
+                draw: (svg) => {
+                    createPath(svg, "curve", `M ${toSVG(0, 60).x} ${toSVG(0, 60).y} L ${toSVG(60, 0).x} ${toSVG(60, 0).y}`, "var(--accent-blue)");
+                    createPath(svg, "curve", `M ${toSVG(20, 100).x} ${toSVG(20, 100).y} L ${toSVG(100, 20).x} ${toSVG(100, 20).y}`, "var(--accent-green)", null, true);
+                    createPath(svg, "curve", `M ${toSVG(0, 10).x} ${toSVG(0, 10).y} L ${toSVG(100, 100).x} ${toSVG(100, 100).y}`, "var(--accent-red)");
+                }
+            },
+            {
+                subtitle: "P6: Salario Mínimo IT",
+                explanation: "Si el gobierno fija un sueldo mínimo de $70 para programadores (muy por encima del equilibrio). <strong>Resultado:</strong> 60 personas quieren trabajar (Oferta), pero las empresas solo contratan a 30 (Demanda). La brecha de 30 personas es el <strong>Desempleo</strong>.",
+                isLabor: true,
+                legend: [{ label: "Salario Mínimo", color: "var(--accent-purple)", isLine: true }, { label: "Desempleo", color: "red", isLine: true }],
+                draw: (svg) => {
+                    const ld = toSVG(30, 70); const ls = toSVG(60, 70);
+                    createPath(svg, "curve", `M ${toSVG(0, 100).x} ${toSVG(0, 100).y} L ${toSVG(100, 0).x} ${toSVG(100, 0).y}`, "var(--accent-blue)");
+                    createPath(svg, "curve", `M ${toSVG(0, 10).x} ${toSVG(0, 10).y} L ${toSVG(90, 100).x} ${toSVG(90, 100).y}`, "var(--accent-red)");
+                    createLine(svg, "line-intervention", OFFSET_X, ld.y, toSVG(100, 70).x, ld.y, "var(--accent-purple)");
+                    createLine(svg, "curve", ld.x, ld.y, ls.x, ls.y, "red");
+                }
+            }
+        ]
     }
 ];
 
