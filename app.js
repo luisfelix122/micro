@@ -348,22 +348,21 @@ const workflow = [
                 explanation: "Un ingeniero senior no se 'fabrica' en un mes. La Oferta de talento experto es <strong>Inelástica</strong> (casi vertical). Resultado: Cuando la demanda explota (IA, digitalización) y se choca con una oferta fija, el <strong>Salario (<i>W</i>)</strong> se dispara brutalmente.",
                 legend: [{ label: "Oferta Inelástica", color: "var(--accent-orange)" }, { label: "Salario Disparado", color: "white" }],
                 draw: (svg) => {
-                    // Oferta inelástica (casi vertical) en L=70
-                    const s_inelastic_top = toSVG(70, 100); const s_inelastic_bot = toSVG(70, 0);
+                    const L_s = 70;
+                    const s_top = toSVG(L_s, 100); const s_bot = toSVG(L_s, 0);
+                    const d_low_1 = toSVG(0, 60); const d_low_2 = toSVG(100, 0);
+                    const d_high_1 = toSVG(0, 100); const d_high_2 = toSVG(100, 40);
 
-                    // Demandas
-                    const d_low_1 = toSVG(0, 60); const d_low_2 = toSVG(100, 0); // Demanda normal
-                    const d_high_1 = toSVG(0, 100); const d_high_2 = toSVG(100, 40); // Demanda alta
-
-                    createPath(svg, "curve", `M ${s_inelastic_bot.x} ${s_inelastic_bot.y} L ${s_inelastic_top.x} ${s_inelastic_top.y}`, "var(--accent-orange)");
+                    createPath(svg, "curve", `M ${s_bot.x} ${s_bot.y} L ${s_top.x} ${s_top.y}`, "var(--accent-orange)");
                     createPath(svg, "curve", `M ${d_low_1.x} ${d_low_1.y} L ${d_low_2.x} ${d_low_2.y}`, "var(--accent-blue)");
                     createPath(svg, "curve", `M ${d_high_1.x} ${d_high_1.y} L ${d_high_2.x} ${d_high_2.y}`, "var(--accent-green)", null, true);
 
-                    // Equilibrio Alto
-                    const w_high = toSVG(70, 82); // Intersección aproximada visual
-                    createCircle(svg, "marker-point", w_high.x, w_high.y, 7, "white");
-                    createText(svg, "axis-label", OFFSET_X - 70, w_high.y + 10, "W$$$", "var(--accent-green)");
-                    createLine(svg, "line-intervention", OFFSET_X, w_high.y, w_high.x, w_high.y, "rgba(255,255,255,0.5)");
+                    const w_val = 58;
+                    const eq_high = toSVG(L_s, w_val);
+                    createCircle(svg, "marker-point", eq_high.x, eq_high.y, 7, "white");
+                    createLine(svg, "line-intervention", OFFSET_X, eq_high.y, eq_high.x, eq_high.y, "rgba(255,255,255,0.5)");
+                    createText(svg, "axis-label-small", OFFSET_X - 45, eq_high.y + 5, w_val, "var(--accent-green)");
+                    createText(svg, "axis-label", OFFSET_X - 100, eq_high.y + 5, "W$$$", "var(--accent-green)");
                 }
             }
         ]
