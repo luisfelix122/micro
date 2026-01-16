@@ -1,3 +1,4 @@
+// LABORATORIO DE MICROECONOMÍA - SECCIÓN EXAMEN AÑADIDA
 // Sistema de Coordenadas: 0-100 (Económico) -> SVG Pixels
 const OFFSET_X = 110;  // Más espacio para números grandes
 const OFFSET_Y = 80;   // Más espacio superior para etiqueta P
